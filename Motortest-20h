@@ -1,0 +1,130 @@
+#!/bin/bash
+
+h=0
+m=0
+s=0
+echo "start Motortest"
+
+#Motoren starten
+./tctl --node=6 --system=1 --motor=1 --acceleration=2000 --speed=2000
+
+./tctl --node=11 --system=1 --motor=1 --acceleration=2000 --speed=2000
+
+for (( i=0; i<=72000; ++i ))
+    do
+       # echo $h":"$m":"$s
+        ./tctl --node=6
+        ./tctl --node=11
+        ((s++))
+        sleep 1
+        if (( $s % 60 == 0 ))
+        then
+            (( m++ ))
+            s=0
+            if (( $m % 60 == 0 ))
+            then
+                (( h++ ))
+                m=0
+            fi
+        fi
+        echo $h":"$m":"$s
+
+        #Richtung wechseln bei 36
+        case $i in
+            1800)
+                ./tctl --node=6 --acceleration=2000 --speed=-2000
+                ./tctl --node=11 --acceleration=2000 --speed=-2000
+                ;;
+            3600)
+                ./tctl --node=6 --acceleration=2000 --speed=2000
+                ./tctl --node=11 --acceleration=2000 --speed=2000
+                ;;
+            7200)
+                ./tctl --node=6 --acceleration=2000 --speed=-2000
+                ./tctl --node=11 --acceleration=2000 --speed=-2000
+                ;;
+            10800)
+                ./tctl --node=6 --acceleration=2000 --speed=5000
+                ./tctl --node=11 --acceleration=2000 --speed=5000
+                ;;
+            11100)
+                ./tctl --node=6 --acceleration=2000 --speed=-5000
+                ./tctl --node=11 --acceleration=2000 --speed=-5000
+                ;;
+            11400)
+                ./tctl --node=6 --acceleration=2000 --speed=4000
+                ./tctl --node=11 --acceleration=2000 --speed=4000
+                ;;
+            13200)
+                ./tctl --node=6 --acceleration=2000 --speed=-2000
+                ./tctl --node=11 --acceleration=2000 --speed=-2000
+                ;;
+            16800)
+                ./tctl --node=6 --acceleration=2000 --speed=2000
+                ./tctl --node=11 --acceleration=2000 --speed=2000
+                ;;
+            20400)
+                ./tctl --node=6 --acceleration=2000 --speed=-4000
+                ./tctl --node=11 --acceleration=2000 --speed=-4000
+                ;;
+            22200)
+                ./tctl --node=6 --acceleration=2000 --speed=5000
+                ./tctl --node=11 --acceleration=2000 --speed=5000
+                ;;
+            22500)
+                ./tctl --node=6 --acceleration=2000 --speed=-5000
+                ./tctl --node=11 --acceleration=2000 --speed=-5000
+                ;;
+            2280)
+                ./tctl --node=6 --acceleration=2000 --speed=5000
+                ./tctl --node=11 --acceleration=2000 --speed=5000
+                ;;
+            23100)
+                ./tctl --node=6 --acceleration=2000 --speed=-5000
+                ./tctl --node=11 --acceleration=2000 --speed=-5000
+                ;;
+            23400)
+                ./tctl --node=6 --acceleration=2000 --speed=2000
+                ./tctl --node=11 --acceleration=2000 --speed=2000
+                ;;
+            29700)
+                ./tctl --node=6 --acceleration=2000 --speed=-2000
+                ./tctl --node=11 --acceleration=2000 --speed=-2000
+                ;;
+ #Ablauf 10h !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            36000)
+                ./tctl --node=6 --acceleration=2000 --speed=3000
+                ./tctl --node=11 --acceleration=2000 --speed=3000
+                ;;
+            43200)
+                ./tctl --node=6 --acceleration=2000 --speed=-3000
+                ./tctl --node=11 --acceleration=2000 --speed=-3000
+                ;;
+            50400)
+                ./tctl --node=6 --acceleration=2000 --speed=1000
+                ./tctl --node=11 --acceleration=2000 --speed=1000
+                ;;
+            59400)
+                ./tctl --node=6 --acceleration=2000 --speed=5000
+                ./tctl --node=11 --acceleration=2000 --speed=5000
+                ;;
+            61200)
+                ./tctl --node=6 --acceleration=2000 --speed=-5000
+                ./tctl --node=11 --acceleration=2000 --speed=-5000
+                ;;
+            63000)
+                ./tctl --node=6 --acceleration=2000 --speed=-1000
+                ./tctl --node=11 --acceleration=2000 --speed=-1000
+                ;;
+#Ablauf 20h !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        esac
+
+    done
+
+
+#Motor anhalten
+./tctl --node=6 --speed=0
+
+./tctl --node=11 --speed=0
+
+echo "Motortest end"

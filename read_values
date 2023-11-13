@@ -1,0 +1,28 @@
+#!/bin/bash
+
+echo "Bitte Motornummer eingeben"
+read Motornummer
+Rs=$(./tctl --motor_Rs)
+Ls_d=$(./tctl --motor_Ls_d)
+Ls_q=$(./tctl --motor_Ls_q)
+Flux=$(./tctl --motor_ratedFlux)
+echo "Motornummer: $Motornummer
+Rs  : $Rs (0.1091551)
+Ls_d: $Ls_d (2.341015e-05)
+Ls_q: $Ls_q (2.341015e-05)
+Flux: $Flux (0.0116241)"
+
+
+
+
+
+
+
+
+
+
+
+
+#test=$(./zeilentest)
+#testarr=( $test )
+#echo ${testarr[2]}
